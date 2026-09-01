@@ -32,7 +32,7 @@
     "updater": {
       "pubkey": "RWTOxldrK+qMbLEyQGO+MeNIBJQzgMAkiTfarzD80p57ZEXqbcwp4G9u",
       "endpoints": [
-        "https://github.com/bchaouki00/econom-eyes/releases/latest/download/latest.json"
+        "https://github.com/M10-white/econom-eyes/releases/latest/download/latest.json"
       ]
     }
   }
