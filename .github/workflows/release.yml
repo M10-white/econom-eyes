@@ -47,26 +47,26 @@ jobs:
             src-tauri/target/release/bundle/nsis/*.zip.sig
 
       - name: Generate updater JSON
-        shell: bash
+        shell: pwsh
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          SETUP_FILE=$(ls src-tauri/target/release/bundle/nsis/*-setup.nsis.zip 2>/dev/null | head -1)
-          SIG_FILE="${SETUP_FILE}.sig"
-          SIGNATURE=$(cat "$SIG_FILE")
-          FILENAME=$(basename "$SETUP_FILE")
-          cat > latest.json << ENDJSON
-          {
-            "version": "${VERSION}",
-            "notes": "Mise à jour v${VERSION}",
-            "pub_date": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-            "platforms": {
-              "windows-x86_64": {
-                "signature": "${SIGNATURE}",
-                "url": "https://github.com/M10-white/econom-eyes/releases/download/v${VERSION}/${FILENAME}"
+          $version = "${{ github.ref_name }}".TrimStart("v")
+          $zip = Get-ChildItem "src-tauri/target/release/bundle/nsis/*-setup.nsis.zip" | Select-Object -First 1
+          $sig = Get-Content "$($zip.FullName).sig" -Raw
+          $filename = $zip.Name
+          $date = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+          $json = @{
+            version = $version
+            notes = "Mise a jour v$version"
+            pub_date = $date
+            platforms = @{
+              "windows-x86_64" = @{
+                signature = $sig.Trim()
+                url = "https://github.com/M10-white/econom-eyes/releases/download/v$version/$filename"
               }
             }
-          }
-          ENDJSON
+          } | ConvertTo-Json -Depth 4
+          $json | Out-File -Encoding utf8 latest.json
+          Write-Host "Generated latest.json for v$version"
 
       - name: Upload updater manifest
         uses: softprops/action-gh-release@v2
