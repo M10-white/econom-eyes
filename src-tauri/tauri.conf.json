@@ -1,0 +1,39 @@
+{
+  "productName": "econom-eyes",
+  "version": "0.1.0",
+  "identifier": "com.economeyes.desktop",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1420",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "econom'eyes",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 900,
+        "minHeight": 600
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "icon": [
+      "icons/icon.ico"
+    ],
+    "createUpdaterArtifacts": true
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "RWTOxldrK+qMbLEyQGO+MeNIBJQzgMAkiTfarzD80p57ZEXqbcwp4G9u",
+      "endpoints": [
+        "https://github.com/bchaouki00/econom-eyes/releases/latest/download/latest.json"
+      ]
+    }
+  }
+}
