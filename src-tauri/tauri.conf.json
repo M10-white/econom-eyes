@@ -30,7 +30,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "RWTOxldrK+qMbLEyQGO+MeNIBJQzgMAkiTfarzD80p57ZEXqbcwp4G9u",
+      "pubkey": "RWSjijz2BkYzza/jtFnzl3BcPM+93OFXCYsBp1dmYCwRwdYipLmMPXVT",
       "endpoints": [
         "https://github.com/M10-white/econom-eyes/releases/latest/download/latest.json"
       ]
