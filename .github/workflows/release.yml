@@ -33,9 +33,42 @@ jobs:
 
       - name: Build Tauri app
         run: npx tauri build --bundles nsis --verbose
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ""
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             src-tauri/target/release/bundle/nsis/*.exe
+            src-tauri/target/release/bundle/nsis/*.sig
+            src-tauri/target/release/bundle/nsis/*.nsis.zip
+            src-tauri/target/release/bundle/nsis/*.nsis.zip.sig
+
+      - name: Generate updater JSON
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}".TrimStart("v")
+          $zip = Get-ChildItem "src-tauri/target/release/bundle/nsis/*-setup.nsis.zip" | Select-Object -First 1
+          $sig = Get-Content "$($zip.FullName).sig" -Raw
+          $filename = $zip.Name
+          $date = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+          $json = @{
+            version = $version
+            notes = "Mise a jour v$version"
+            pub_date = $date
+            platforms = @{
+              "windows-x86_64" = @{
+                signature = $sig.Trim()
+                url = "https://github.com/M10-white/econom-eyes/releases/download/v$version/$filename"
+              }
+            }
+          } | ConvertTo-Json -Depth 4
+          $json | Out-File -Encoding utf8 latest.json
+          Write-Host "Generated latest.json for v$version"
+
+      - name: Upload updater manifest
+        uses: softprops/action-gh-release@v2
+        with:
+          files: latest.json

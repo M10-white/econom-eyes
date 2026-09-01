@@ -1,6 +1,6 @@
 {
   "productName": "econom-eyes",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "identifier": "com.economeyes.desktop",
   "build": {
     "frontendDist": "../dist",
@@ -26,7 +26,14 @@
     "icon": [
       "icons/icon.ico"
     ],
-    "createUpdaterArtifacts": false
+    "createUpdaterArtifacts": true
   },
-  "plugins": {}
+  "plugins": {
+    "updater": {
+      "pubkey": "RWTt77ituQVKZb3QfBjxLnzEaQI4yCKjY/1rjy5rvaZ+IqrylAqclxTi",
+      "endpoints": [
+        "https://github.com/M10-white/econom-eyes/releases/latest/download/latest.json"
+      ]
+    }
+  }
 }
