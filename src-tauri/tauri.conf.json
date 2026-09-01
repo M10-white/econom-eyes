@@ -26,14 +26,7 @@
     "icon": [
       "icons/icon.ico"
     ],
-    "createUpdaterArtifacts": true
+    "createUpdaterArtifacts": false
   },
-  "plugins": {
-    "updater": {
-      "pubkey": "RWT6bTv09IGeSiB7Bbsb2Ph3z2HHNXAZgelikIJx7XAk6kwIIi4rQfpi",
-      "endpoints": [
-        "https://github.com/M10-white/econom-eyes/releases/latest/download/latest.json"
-      ]
-    }
-  }
+  "plugins": {}
 }
