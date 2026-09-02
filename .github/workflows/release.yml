@@ -46,7 +46,7 @@ jobs:
           Set-Content -Path "signing-key.tmp" -Value $keyContent -NoNewline -Encoding utf8
           $exe = Get-ChildItem "src-tauri/target/release/bundle/nsis/*-setup.exe" | Select-Object -First 1
           $zipPath = $exe.FullName -replace '\.exe$', '.nsis.zip'
-          Compress-Archive -Path $exe.FullName -DestinationPath $zipPath
+          Compress-Archive -Path $exe.FullName -DestinationPath $zipPath -CompressionLevel NoCompression
           rsign sign $zipPath -s signing-key.tmp -x "$zipPath.sig" -t "econom-eyes update"
           Remove-Item signing-key.tmp
           Write-Host "Created: $zipPath"
