@@ -65,7 +65,8 @@ jobs:
         run: |
           $version = "${{ github.ref_name }}".TrimStart("v")
           $zip = Get-ChildItem "src-tauri/target/release/bundle/nsis/*-setup.nsis.zip" | Select-Object -First 1
-          $sig = Get-Content "$($zip.FullName).sig" -Raw
+          $sigRaw = Get-Content "$($zip.FullName).sig" -Raw
+          $sigB64 = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($sigRaw.Trim()))
           $filename = $zip.Name
           $date = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
           $json = @{
@@ -74,7 +75,7 @@ jobs:
             pub_date = $date
             platforms = @{
               "windows-x86_64" = @{
-                signature = $sig.Trim()
+                signature = $sigB64
                 url = "https://github.com/M10-white/econom-eyes/releases/download/v$version/$filename"
               }
             }

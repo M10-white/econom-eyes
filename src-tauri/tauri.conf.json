@@ -1,6 +1,6 @@
 {
   "productName": "econom-eyes",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "identifier": "com.economeyes.desktop",
   "build": {
     "frontendDist": "../dist",
@@ -30,7 +30,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "RWSmfwutkvQtEJ1SMsLHswLiX9y8Kb5zT9gJG/fXOVeoxGZfg8uyxcH0",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDEwMkRGNDkyQUQwQjdGQTYKUldTbWZ3dXRrdlF0RUoxU01zTEhzd0xpWDl5OEtiNXpUOWdKRy9mWE9WZW94R1pmZzh1eXhjSDA=",
       "endpoints": [
         "https://github.com/M10-white/econom-eyes/releases/latest/download/latest.json"
       ]
