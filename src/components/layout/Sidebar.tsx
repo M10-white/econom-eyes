@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { getVersion } from "@tauri-apps/api/app";
 import {
   LayoutDashboard,
   ArrowLeftRight,
@@ -22,6 +24,12 @@ const navItems = [
 ];
 
 export default function Sidebar() {
+  const [version, setVersion] = useState("");
+
+  useEffect(() => {
+    getVersion().then(setVersion);
+  }, []);
+
   return (
     <aside className="w-56 h-full bg-panel border-r border-edge flex flex-col shrink-0">
       <div className="h-14 flex items-center px-5 border-b border-edge">
@@ -51,7 +59,7 @@ export default function Sidebar() {
       </nav>
 
       <div className="px-4 py-3 border-t border-edge">
-        <div className="text-[11px] font-mono text-fg-3">v0.1.0</div>
+        <div className="text-[11px] font-mono text-fg-3">v{version}</div>
       </div>
     </aside>
   );
